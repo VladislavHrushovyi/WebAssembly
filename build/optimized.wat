@@ -1,7 +1,7 @@
 (module
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
@@ -24,6 +24,8 @@
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "InvertColors" (func $assembly/index/InvertColors))
+ (export "Sepia" (func $assembly/index/Sepia))
+ (export "Rotate" (func $assembly/index/Rotate))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1138,6 +1140,204 @@
     i32.const 1
     i32.add
     local.set $0
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Sepia (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 f64)
+  (local $4 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $1
+  loop $for-loop|0
+   local.get $2
+   local.get $1
+   i32.lt_s
+   if
+    local.get $2
+    i32.load8_u offset=3
+    local.set $4
+    local.get $1
+    local.get $2
+    i32.add
+    local.tee $0
+    local.get $2
+    i32.load8_u
+    f64.convert_i32_u
+    f64.const 0.2126
+    f64.mul
+    local.get $2
+    i32.load8_u offset=1
+    f64.convert_i32_u
+    f64.const 0.7152
+    f64.mul
+    f64.add
+    local.get $2
+    i32.load8_u offset=2
+    f64.convert_i32_u
+    f64.const 0.0722
+    f64.mul
+    f64.add
+    local.tee $3
+    i32.trunc_f64_u
+    i32.store8
+    local.get $0
+    local.get $3
+    i32.trunc_f64_u
+    i32.store8 offset=1
+    local.get $0
+    local.get $3
+    i32.trunc_f64_u
+    i32.store8 offset=2
+    local.get $0
+    local.get $4
+    i32.store8 offset=3
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Rotate (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  i32.const 1
+  local.set $9
+  i32.const 1
+  local.set $4
+  local.get $1
+  local.set $5
+  i32.const 1
+  local.set $10
+  local.get $0
+  local.tee $3
+  local.set $6
+  local.get $2
+  i32.const 90
+  i32.eq
+  if
+   local.get $1
+   i32.const 1
+   i32.sub
+   local.set $7
+   local.get $1
+   local.set $3
+   i32.const -1
+   local.set $9
+   local.get $6
+   local.tee $4
+   local.set $5
+   i32.const 1
+   local.set $6
+  else
+   local.get $2
+   i32.const 180
+   i32.eq
+   if
+    local.get $6
+    i32.const 1
+    i32.sub
+    local.set $7
+    i32.const -1
+    local.set $9
+    local.get $1
+    i32.const 1
+    i32.sub
+    local.set $8
+    i32.const -1
+    local.set $10
+   else
+    local.get $2
+    i32.const 270
+    i32.eq
+    if
+     local.get $6
+     local.tee $4
+     i32.const 1
+     i32.sub
+     local.set $8
+     i32.const -1
+     local.set $10
+     i32.const 1
+     local.set $6
+     local.get $4
+     local.set $5
+     local.get $1
+     local.set $3
+    end
+   end
+  end
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $1
+  loop $for-loop|0
+   local.get $8
+   local.get $5
+   i32.lt_s
+   i32.const 0
+   local.get $8
+   i32.const 0
+   i32.ge_s
+   select
+   if
+    local.get $7
+    local.set $0
+    loop $for-loop|1
+     local.get $0
+     local.get $3
+     i32.lt_s
+     i32.const 0
+     local.get $0
+     i32.const 0
+     i32.ge_s
+     select
+     if
+      local.get $1
+      local.get $11
+      i32.add
+      local.get $0
+      local.get $4
+      i32.mul
+      local.get $6
+      local.get $8
+      i32.mul
+      i32.add
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store offset=4
+      local.get $11
+      i32.const 1
+      i32.add
+      local.set $11
+      local.get $0
+      local.get $9
+      i32.add
+      local.set $0
+      br $for-loop|1
+     end
+    end
+    local.get $8
+    local.get $10
+    i32.add
+    local.set $8
     br $for-loop|0
    end
   end
