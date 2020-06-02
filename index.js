@@ -24,7 +24,7 @@
              imageData = context.getImageData(0,0, canvas.width, canvas.height);
 
              const bytePerImage = img.width * img.height * PIXELS_BYTE;
-             const minMemSize = bytePerImage * 2;
+             const minMemSize = bytePerImage * 3;
              const pagesNeeded = Math.ceil(minMemSize/PAGES);
 
              memory.grow(pagesNeeded);
@@ -64,7 +64,7 @@
     }
 
         async function initWasmModule(){
-            let memory = new WebAssembly.Memory({initial: 1});
+            let memory = new WebAssembly.Memory({initial: 255});
 
             const imports = {
                 env: {
