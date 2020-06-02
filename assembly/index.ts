@@ -41,8 +41,8 @@ export function Rotate(width: i32, height: i32, rotate: i32): void {
     let d2Advance = 1;
     let d2Multiplier = width;
 
-    if(rotate === 90){
-        d1Start = height -1;
+    if(rotate == 90){
+        d1Start = height-1;
         d1Limit = height;
         d1Advance = -1;
         d1Multiplier = width;
@@ -70,10 +70,10 @@ export function Rotate(width: i32, height: i32, rotate: i32): void {
         d2Multiplier = 1;
     }
 
-    for(let d2 = d2Start; d2 >= 0 && d2<d2Limit; d2+=d2Advance){
+    for(let d2 = d2Start; d2 >= 0 && d2 < d2Limit; d2 += d2Advance){
         for(let d1 = d1Start; d1 >= 0 && d1 < d1Limit; d1+=d1Advance) {
             let in_idx = ((d1 * d1Multiplier) + (d2 * d2Multiplier));
-            store<u32>(offset + i + BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
             i += 1;
         }
     }

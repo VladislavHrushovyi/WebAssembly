@@ -20,14 +20,17 @@
 
          img.src = "./source/test.png";
          img.onload = () =>{
+             canvas.width = img.width;
+             canvas.height = img.height;
              context.drawImage(img, 0,0);
              imageData = context.getImageData(0,0, canvas.width, canvas.height);
 
              const bytePerImage = img.width * img.height * PIXELS_BYTE;
-             const minMemSize = bytePerImage * 3;
-             const pagesNeeded = Math.ceil(minMemSize/PAGES);
-
-             memory.grow(pagesNeeded);
+             const minMemSize = bytePerImage * 2;
+             if(memory.buffer.byteLength < minMemSize){
+                 const pagesNeeded = Math.ceil(minMemSize/PAGES);
+                 memory.grow(pagesNeeded);
+             }
 
              new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
          };
@@ -36,15 +39,15 @@
              degree = normDegree(degree+90);
              instance.exports.Rotate(img.width, img.height, degree);
 
-             const  resultData =  new Uint8ClampedArray(memory.buffer,
-                 img.height*img.width*PIXELS_BYTE,
-                 img.height*img.width*PIXELS_BYTE);
+             const  resultData =  new Uint8ClampedArray(
+                 memory.buffer,
+                 img.height * img.width * PIXELS_BYTE,
+                 img.height * img.width * PIXELS_BYTE);
              context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
          });
 
          document.getElementById("asmBtn").addEventListener("click", function () {
             instance.exports.InvertColors(img.width, img.height);
-
              const  resultData =  new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
@@ -64,7 +67,7 @@
     }
 
         async function initWasmModule(){
-            let memory = new WebAssembly.Memory({initial: 255});
+            let memory = new WebAssembly.Memory({initial: 1});
 
             const imports = {
                 env: {

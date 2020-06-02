@@ -1309,8 +1309,10 @@
      i32.ge_s
      select
      if
-      local.get $1
       local.get $11
+      i32.const 2
+      i32.shl
+      local.get $1
       i32.add
       local.get $0
       local.get $4
@@ -1322,7 +1324,7 @@
       i32.const 2
       i32.shl
       i32.load
-      i32.store offset=4
+      i32.store
       local.get $11
       i32.const 1
       i32.add

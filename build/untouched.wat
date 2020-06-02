@@ -1833,8 +1833,8 @@
       local.set $17
       local.get $3
       local.get $4
-      i32.add
       global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
       i32.add
       local.get $17
       global.get $assembly/index/BYTE_PER_IMAGE
