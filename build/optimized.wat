@@ -25,6 +25,7 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "InvertColors" (func $assembly/index/InvertColors))
  (export "Sepia" (func $assembly/index/Sepia))
+ (export "Visible" (func $assembly/index/Visible))
  (export "Rotate" (func $assembly/index/Rotate))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -1201,6 +1202,35 @@
     i32.const 4
     i32.add
     local.set $2
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Visible (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $0
+  loop $for-loop|0
+   local.get $3
+   local.get $0
+   i32.lt_s
+   if
+    local.get $0
+    local.get $3
+    i32.add
+    local.get $3
+    i32.load8_u offset=3
+    local.get $2
+    i32.sub
+    i32.store8 offset=3
+    local.get $3
+    i32.const 4
+    i32.add
+    local.set $3
     br $for-loop|0
    end
   end

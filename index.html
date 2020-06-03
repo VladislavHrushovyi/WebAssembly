@@ -3,13 +3,46 @@
     <head>
         <script src='index.js'></script>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
         <title></title>
     </head>
     <body>
-    <canvas id="canvas"></canvas>
-        <button id = "jsBtn" onclick="invert()">JS</button>
-        <button id = "asmBtn">WebAssembly</button>
-        <button id = "sepia">WASM sepia</button>
-        <button id = "rotate">WASM rotate</button>
+    <div class="upBlock">
+        <canvas id ="canvas"></canvas>
+        <p>
+            <input name="files[]" type="file" id = "upload" multiple>
+        </p>
+    </div>
+
+    <section class="section-inline-block">
+    <div class="edge_block">
+        <p>
+            <input type="radio" id="none"
+                   name="contact" value="email">
+            <label for="none">None</label>
+        </p>
+        <p>
+            <input type="radio" id="invertColor"
+                   name="contact" value="phone">
+            <label for="invertColor">Invert color</label>
+        </p>
+        <p>
+            <input type="radio" id="grayScale"
+                   name="contact" value="mail">
+            <label for="grayScale">Gray scale</label>
+        </p>
+    </div>
+        <div class="edge_block">
+            <p>
+                <input id="visibility" type="range" min="0" max="255" step="1" value="0">
+                <label for = "visibility">
+                    Visible
+                </label>
+            </p>
+            <p>
+                <button id = "rotate">Rotate</button>
+            </p>
+        </div>
+    </section>
     </body>
 </html>

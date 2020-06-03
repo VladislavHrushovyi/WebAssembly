@@ -1,4 +1,4 @@
- (function (array, offset) {
+(function () {
 
 
      const PIXELS_BYTE = 4;
@@ -14,54 +14,92 @@
      function asmInvert({instance, memory}){
          const canvas = document.getElementById("canvas");
          const context = canvas.getContext('2d');
+         let upload = document.getElementById("upload");
          const img = new Image();
          let imageData;
+         let resultData;
          let degree = 0;
 
-         img.src = "./source/test.png";
-         img.onload = () =>{
-             canvas.width = img.width;
-             canvas.height = img.height;
-             context.drawImage(img, 0,0);
-             imageData = context.getImageData(0,0, canvas.width, canvas.height);
+         upload.addEventListener('change', e => {
+             img.src = URL.createObjectURL(e.target.files[0]);
+             img.onload = () =>{
+                 canvas.width = img.width;
+                 canvas.height = img.height;
+                 context.drawImage(img, 0,0);
+                 imageData = context.getImageData(0,0, canvas.width, canvas.height);
 
-             const bytePerImage = img.width * img.height * PIXELS_BYTE;
-             const minMemSize = bytePerImage * 2;
-             if(memory.buffer.byteLength < minMemSize){
-                 const pagesNeeded = Math.ceil(minMemSize/PAGES);
-                 memory.grow(pagesNeeded);
-             }
+                 const bytePerImage = img.width * img.height * PIXELS_BYTE;
+                 const minMemSize = bytePerImage * 2;
+                 if(memory.buffer.byteLength < minMemSize){
+                     const pagesNeeded = Math.ceil(minMemSize/PAGES);
+                     memory.grow(pagesNeeded);
+                 }
 
-             new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
-         };
+                 new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
+
+             };
+         });
+
 
          document.getElementById("rotate").addEventListener("click", function () {
-             degree = normDegree(degree+90);
+             degree = normDegree(degree + 90);
              instance.exports.Rotate(img.width, img.height, degree);
-
-             const  resultData =  new Uint8ClampedArray(
+             const resultData = new Uint8ClampedArray(
                  memory.buffer,
                  img.height * img.width * PIXELS_BYTE,
                  img.height * img.width * PIXELS_BYTE);
-             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+
+             if (degree === 90 || degree === 270) {
+                 canvas.width = img.height;
+                 canvas.height = img.width;
+                 context.putImageData(new ImageData(resultData, img.height, img.width), 0, 0);
+             } else {
+                 canvas.width = img.width;
+                 canvas.height = img.height;
+                 context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
+             }
          });
 
-         document.getElementById("asmBtn").addEventListener("click", function () {
+         document.getElementById("invertColor").addEventListener("click", function () {
             instance.exports.InvertColors(img.width, img.height);
-             const  resultData =  new Uint8ClampedArray(
+                 resultData = new Uint8ClampedArray(
                  memory.buffer,
-                 img.width*img.height*PIXELS_BYTE,
-                 img.width*img.height*PIXELS_BYTE);
+                 img.width * img.height * PIXELS_BYTE,
+                 img.width * img.height * PIXELS_BYTE);
              context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
          });
-         document.getElementById("sepia").addEventListener("click", function () {
+         document.getElementById("grayScale").addEventListener("click", function () {
              instance.exports.Sepia(img.width, img.height);
 
-             const  resultData =  new Uint8ClampedArray(
+             resultData =  new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
                  img.width*img.height*PIXELS_BYTE);
              context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         });
+         document.getElementById("none").addEventListener("click", function () {
+             context.drawImage(img, 0,0);
+             imageData = context.getImageData(0,0, canvas.width, canvas.height);
+         });
+
+         document.getElementById("visibility").addEventListener("change", function () {
+             console.log(instance.exports.Visible(img.width,img.height, 50));
+             let value = document.getElementById("visibility").value;
+             instance.exports.Visible(img.width,img.height, value);
+
+             resultData =  new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+             if (degree === 90 || degree === 270) {
+                 canvas.width = img.height;
+                 canvas.height = img.width;
+                 context.putImageData(new ImageData(resultData, img.height, img.width), 0, 0);
+             } else {
+                 canvas.width = img.width;
+                 canvas.height = img.height;
+                 context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
+             }
          });
 
     }

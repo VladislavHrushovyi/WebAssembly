@@ -13,6 +13,7 @@ export function InvertColors(width: i32, height: i32):void {
  }
 }
 
+
 export function Sepia(width: i32, height: i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
     for(let i = 0; i < offset; i+=4){
@@ -24,6 +25,16 @@ export function Sepia(width: i32, height: i32): void {
         store<u8>(offset + i, <u8>luma);
         store<u8>(offset + i+1, <u8>luma);
         store<u8>(offset + i+2, <u8>luma);
+        store<u8>(offset + i+3, alpha);
+    }
+}
+
+export function Visible(width: i32, height: i32, value: u8): void {
+    let offset = width * height * BYTE_PER_IMAGE;
+    for(let i = 0; i < offset; i+=4){
+        let alpha = load<u8>(i + 3);
+        alpha -=  value;
+
         store<u8>(offset + i+3, alpha);
     }
 }
