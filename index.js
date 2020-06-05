@@ -37,6 +37,8 @@
 
                  new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
 
+                 console.log(memory.buffer.byteLength);
+
              };
          });
 
@@ -81,7 +83,6 @@
              imageData = context.getImageData(0,0, canvas.width, canvas.height);
          });
          document.getElementById("visibility").addEventListener("change", function () {
-             console.log(instance.exports.Visible(img.width,img.height, 50));
              let value = document.getElementById("visibility").value;
              instance.exports.Visible(img.width,img.height, value);
 
@@ -111,8 +112,8 @@
             console.log(memory.buffer.byteLength)
              const resultTest = new Uint8ClampedArray(
                  memory.buffer,
-                 img.width * img.height * PIXELS_BYTE,
-                 img.width * img.height * PIXELS_BYTE);
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
 
             console.log(resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
