@@ -1,7 +1,7 @@
 (module
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $i32_=>_none (func (param i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
@@ -32,7 +32,9 @@
  (export "Sepia" (func $assembly/index/Sepia))
  (export "Visible" (func $assembly/index/Visible))
  (export "Rotate" (func $assembly/index/Rotate))
+ (export "Contrast" (func $assembly/index/Contrast))
  (export "Zoom" (func $assembly/index/Zoom))
+ (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1906,6 +1908,176 @@
    end
   end
  )
+ (func $assembly/index/Contrast (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 f64)
+  (local $10 f64)
+  (local $11 f64)
+  (local $12 f64)
+  (local $13 f64)
+  (local $14 f64)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $3
+  i32.const 0
+  local.set $4
+  loop $for-loop|0
+   local.get $4
+   local.get $3
+   i32.lt_s
+   local.set $5
+   local.get $5
+   if
+    local.get $4
+    i32.load8_u
+    local.set $6
+    local.get $4
+    i32.const 1
+    i32.add
+    i32.load8_u
+    local.set $7
+    local.get $4
+    i32.const 2
+    i32.add
+    i32.load8_u
+    local.set $8
+    local.get $6
+    f64.convert_i32_u
+    f64.const 255
+    f64.div
+    local.set $9
+    local.get $7
+    f64.convert_i32_u
+    f64.const 255
+    f64.div
+    local.set $10
+    local.get $8
+    f64.convert_i32_u
+    f64.const 255
+    f64.div
+    local.set $11
+    local.get $9
+    f64.const 0.5
+    f64.sub
+    local.get $2
+    f64.convert_i32_u
+    f64.mul
+    f64.const 0.5
+    f64.add
+    f64.const 255
+    f64.mul
+    local.set $9
+    local.get $10
+    f64.const 0.5
+    f64.sub
+    local.get $2
+    f64.convert_i32_u
+    f64.mul
+    f64.const 0.5
+    f64.add
+    f64.const 255
+    f64.mul
+    local.set $10
+    local.get $11
+    f64.const 0.5
+    f64.sub
+    local.get $2
+    f64.convert_i32_u
+    f64.mul
+    f64.const 0.5
+    f64.add
+    f64.const 255
+    f64.mul
+    local.set $11
+    local.get $9
+    local.set $12
+    local.get $12
+    f64.const 255
+    f64.gt
+    if
+     f64.const 255
+     local.set $12
+    else
+     local.get $12
+     f64.const 0
+     f64.lt
+     if
+      f64.const 0
+      local.set $12
+     end
+    end
+    local.get $10
+    local.set $13
+    local.get $13
+    f64.const 255
+    f64.gt
+    if
+     f64.const 255
+     local.set $13
+    else
+     local.get $13
+     f64.const 0
+     f64.lt
+     if
+      f64.const 0
+      local.set $13
+     end
+    end
+    local.get $11
+    local.set $14
+    local.get $14
+    f64.const 255
+    f64.gt
+    if
+     f64.const 255
+     local.set $14
+    else
+     local.get $14
+     f64.const 0
+     f64.lt
+     if
+      f64.const 0
+      local.set $14
+     end
+    end
+    local.get $3
+    local.get $4
+    i32.add
+    local.get $12
+    i32.trunc_f64_u
+    i32.store8
+    local.get $3
+    local.get $4
+    i32.add
+    i32.const 1
+    i32.add
+    local.get $13
+    i32.trunc_f64_u
+    i32.store8
+    local.get $3
+    local.get $4
+    i32.add
+    i32.const 2
+    i32.add
+    local.get $14
+    i32.trunc_f64_u
+    i32.store8
+    local.get $4
+    i32.const 4
+    i32.add
+    local.set $4
+    br $for-loop|0
+   end
+  end
+ )
  (func $assembly/index/Zoom (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2025,6 +2197,57 @@
     local.get $10
     i32.add
     local.set $12
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/ZoomTest (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $2
+  i32.const 0
+  local.set $3
+  loop $for-loop|0
+   local.get $3
+   local.get $2
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.add
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 1
+    i32.add
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.add
+    i32.const 1
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.add
+    i32.load
+    i32.store
+    local.get $3
+    i32.const 2
+    i32.add
+    local.set $3
     br $for-loop|0
    end
   end

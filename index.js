@@ -29,7 +29,7 @@
                  imageData = context.getImageData(0,0, canvas.width, canvas.height);
 
                  const bytePerImage = img.width * img.height * PIXELS_BYTE;
-                 const minMemSize = bytePerImage * 3;
+                 const minMemSize = bytePerImage * 2;
                  if(memory.buffer.byteLength < minMemSize){
                      const pagesNeeded = Math.ceil(minMemSize/PAGES);
                      memory.grow(pagesNeeded);
@@ -101,21 +101,51 @@
              }
          });
 
+         document.getElementById("contrast").addEventListener("change",function () {
+             let value = document.getElementById("contrast").value;
+             instance.exports.Contrast(img.width,img.height, value);
+
+             resultData =  new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+             if (degree === 90 || degree === 270) {
+                 canvas.width = img.height;
+                 canvas.height = img.width;
+                 context.putImageData(new ImageData(resultData, img.height, img.width), 0, 0);
+             } else {
+                 canvas.width = img.width;
+                 canvas.height = img.height;
+                 context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
+             }
+         });
+
          document.getElementById("2xBTN").addEventListener("click", function () {
              const canvasTest = document.getElementById("testCanvas");
              const contextTestCanvas = canvasTest.getContext('2d');
 
              canvasTest.width = img.width * 2;
              canvasTest.height = img.height * 2;
+             canvasTest.style="border:1px solid #000000;"
+
+             const bytePerImageTest = (img.width * img.height * PIXELS_BYTE)*3;
+             const minMemSizeTest = bytePerImageTest*2;
+             if(memory.buffer.byteLength < minMemSizeTest){
+                 const pagesNeededTest = Math.ceil(minMemSizeTest/PAGES);
+                 memory.grow(pagesNeededTest);
+                 console.log("New memory")
+             }
+
+             new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
 
              instance.exports.Zoom(img.width,img.height);
-            console.log(memory.buffer.byteLength)
+            console.log("після зума " + memory.buffer.byteLength);
              const resultTest = new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
                  img.width*img.height*PIXELS_BYTE);
 
-            console.log(resultTest.byteLength);
+            console.log("result test "+resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
          });
 

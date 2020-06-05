@@ -90,6 +90,49 @@ export function Rotate(width: i32, height: i32, rotate: i32): void {
     }
 }
 
+export function Contrast(width: i32, height: i32, value: u8): void {
+    // value = (100 + value)/100;
+    // value *= value;
+
+    let offset = width * height * BYTE_PER_IMAGE;
+    for(let i = 0; i < offset; i+=4) {
+        let r = load<u8>(i);
+        let g = load<u8>(i + 1);
+        let b = load<u8>(i + 2);
+
+        let Red = r / 255.0;
+        let Green = g / 255.0;
+        let Blue = b / 255.0;
+
+        Red = (((Red - 0.5) * value) + 0.5) * 255.0;
+        Green = (((Green - 0.5) * value) + 0.5) * 255.0;
+        Blue = (((Blue - 0.5) * value) + 0.5) * 255.0;
+
+        let iR = Red;
+        if(iR > 255.0){
+            iR = 255.0
+        }else if(iR < 0){
+            iR = 0;
+        }
+        let iG = Green;
+        if(iG > 255.0){
+            iG = 255.0
+        }else if(iG < 0){
+            iG = 0;
+        }
+        let iB = Blue;
+        if(iB > 255.0){
+            iB = 255.0
+        }else if(iB < 0){
+            iB = 0;
+        }
+
+        store<u8>(offset + i, <u8>iR);
+        store<u8>(offset + i+1, <u8>iG);
+        store<u8>(offset + i+2, <u8>iB);
+    }
+}
+
 
 export function Zoom(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
@@ -115,11 +158,11 @@ export function Zoom(width: i32, height:i32): void {
     }
 }
 
-// export function Rotate(width: i32, height: i32, rotate: i32): void {
-//     for(let y = 0; y < height; y++){
-//         for(let x = 0; x < width; x++){
-//             let inPixel = load<u32>(y * width + x);
-//             store<u32>(rorate(x,y),inPixel);
-//         }
-//     }
-// }
+export function ZoomTest(width: i32, height:i32): void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    for(let i = 0;i < offset; i+=2){
+        store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>( i* BYTE_PER_IMAGE));
+        store<u32>(offset + 1 + i * BYTE_PER_IMAGE, load<u32>( 1 + i * BYTE_PER_IMAGE));
+    }
+}
