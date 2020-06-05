@@ -27,6 +27,7 @@
  (export "Sepia" (func $assembly/index/Sepia))
  (export "Visible" (func $assembly/index/Visible))
  (export "Rotate" (func $assembly/index/Rotate))
+ (export "Zoom" (func $assembly/index/Zoom))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1370,6 +1371,87 @@
     local.get $10
     i32.add
     local.set $8
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Zoom (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $5
+  loop $for-loop|0
+   local.get $3
+   local.get $1
+   i32.lt_s
+   i32.const 0
+   local.get $3
+   i32.const 0
+   i32.ge_s
+   select
+   if
+    i32.const 0
+    local.set $2
+    loop $for-loop|1
+     local.get $2
+     local.get $0
+     i32.lt_s
+     i32.const 0
+     local.get $2
+     i32.const 0
+     i32.ge_s
+     select
+     if
+      local.get $4
+      i32.const 2
+      i32.shl
+      local.get $5
+      i32.add
+      local.get $2
+      local.get $0
+      local.get $3
+      i32.mul
+      i32.add
+      local.tee $6
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store
+      local.get $4
+      i32.const 1
+      i32.add
+      local.tee $4
+      i32.const 2
+      i32.shl
+      local.get $5
+      i32.add
+      local.get $6
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store
+      local.get $4
+      i32.const 1
+      i32.add
+      local.set $4
+      local.get $2
+      i32.const 1
+      i32.add
+      local.set $2
+      br $for-loop|1
+     end
+    end
+    local.get $3
+    i32.const 1
+    i32.add
+    local.set $3
     br $for-loop|0
    end
   end

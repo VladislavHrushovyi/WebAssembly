@@ -29,7 +29,7 @@
                  imageData = context.getImageData(0,0, canvas.width, canvas.height);
 
                  const bytePerImage = img.width * img.height * PIXELS_BYTE;
-                 const minMemSize = bytePerImage * 2;
+                 const minMemSize = bytePerImage * 3;
                  if(memory.buffer.byteLength < minMemSize){
                      const pagesNeeded = Math.ceil(minMemSize/PAGES);
                      memory.grow(pagesNeeded);
@@ -59,7 +59,6 @@
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
          });
-
          document.getElementById("invertColor").addEventListener("click", function () {
             instance.exports.InvertColors(img.width, img.height);
                  resultData = new Uint8ClampedArray(
@@ -81,7 +80,6 @@
              context.drawImage(img, 0,0);
              imageData = context.getImageData(0,0, canvas.width, canvas.height);
          });
-
          document.getElementById("visibility").addEventListener("change", function () {
              console.log(instance.exports.Visible(img.width,img.height, 50));
              let value = document.getElementById("visibility").value;
@@ -100,6 +98,24 @@
                  canvas.height = img.height;
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
+         });
+
+         document.getElementById("2xBTN").addEventListener("click", function () {
+             const canvasTest = document.getElementById("testCanvas");
+             const contextTestCanvas = canvasTest.getContext('2d');
+
+             canvasTest.width = img.width * 2;
+             canvasTest.height = img.height * 2;
+
+             instance.exports.Zoom(img.width,img.height);
+            console.log(memory.buffer.byteLength)
+             const resultTest = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width * img.height * PIXELS_BYTE,
+                 img.width * img.height * PIXELS_BYTE);
+
+            console.log(resultTest.byteLength);
+             contextTestCanvas.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
          });
 
     }
