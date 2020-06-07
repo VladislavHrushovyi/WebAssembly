@@ -128,8 +128,8 @@
              canvasTest.height = img.height * 2;
              canvasTest.style="border:1px solid #000000;"
 
-             const bytePerImageTest = (img.width * img.height * PIXELS_BYTE)*3;
-             const minMemSizeTest = bytePerImageTest*2;
+             const bytePerImageTest = img.width * img.height * PIXELS_BYTE;
+             const minMemSizeTest = bytePerImageTest*5;
              if(memory.buffer.byteLength < minMemSizeTest){
                  const pagesNeededTest = Math.ceil(minMemSizeTest/PAGES);
                  memory.grow(pagesNeededTest);
@@ -143,10 +143,10 @@
              const resultTest = new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
-                 img.width*img.height*PIXELS_BYTE);
+                 (img.width*img.height*PIXELS_BYTE) * 4);
 
             console.log("result test "+resultTest.byteLength);
-             contextTestCanvas.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
+             contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
          });
 
     }
