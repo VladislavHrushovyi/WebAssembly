@@ -13,7 +13,6 @@ export function InvertColors(width: i32, height: i32):void {
  }
 }
 
-
 export function Sepia(width: i32, height: i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
     for(let i = 0; i < offset; i+=4){
@@ -90,7 +89,7 @@ export function Rotate(width: i32, height: i32, rotate: i32): void {
     }
 }
 
-export function Contrast(width: i32, height: i32, value: u8): void {
+export function Contrast(width: i32, height: i32, value: f64): void {
     // value = (100 + value)/100;
     // value *= value;
 
@@ -133,7 +132,6 @@ export function Contrast(width: i32, height: i32, value: u8): void {
     }
 }
 
-
 export function Zoom(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
     let i = 0;
@@ -158,11 +156,89 @@ export function Zoom(width: i32, height:i32): void {
     }
 }
 
+export function Temperature(width:i32, height:i32, value:f64): void {
+    let offset = width * height * BYTE_PER_IMAGE;
+    let tmpKelvin = value/100;
+
+    for(let i = 0; i < offset; i+=4) {
+        let r = calcRed(load<u8>(i),tmpKelvin);
+        let g = calcGreen(load<u8>(i + 1),tmpKelvin);
+        let b = calcBlue(load<u8>(i + 2),tmpKelvin);
+
+        store<u8>(offset + i, <u8>r);
+        store<u8>(offset + i+1, <u8>g);
+        store<u8>(offset + i+2, <u8>b);
+    }
+}
+
+function calcRed(red: f64, tmpKelvin:f64):u8 {
+    let tmpCalc = <f64>0;
+    if(tmpKelvin<=66){
+        red = 255
+    }else{
+        tmpCalc = tmpKelvin-60;
+        tmpCalc =  329.698727446 * Math.pow(tmpCalc ,-0.1332047592);
+        red = tmpCalc;
+        if(red < 0){
+            red = 0;
+        }else if(red > 255){
+            red = 255
+        }
+    }
+
+    return <u8>red;
+}
+
+function calcGreen(green: f64, tmpKelvin:f64):u8 {
+    let tmpCalc = <f64>0;
+    if( tmpKelvin <= 66) {
+        tmpCalc = tmpKelvin;
+        tmpCalc = 99.4708025861 * Math.log(green) - 161.1195681661;
+        green = tmpCalc;
+        if(green < 0)
+        green = 0;
+        if(green > 255){
+            green = 255
+        }
+    }else{
+        tmpCalc = tmpKelvin - 60;
+        tmpCalc = 288.1221695283 * (Math.pow(green,-0.0755148492));
+        green = tmpCalc;
+        if(green < 0){
+            green=0;
+        }else if(green > 255){
+            green = 255;
+        }
+    }
+
+    return <u8>green;
+}
+
+function calcBlue(blue: f64, tmpKelvin:f64): u8 {
+    let tmpCalc = <f64>0;
+    if(tmpKelvin >= 66){
+        blue = 255;
+    }else if(tmpKelvin<=19) {
+        blue = 0;
+    }
+    else{
+        tmpCalc = tmpKelvin-10;
+        tmpCalc = 138.5177312231 * Math.log(blue) - 305.0447927307;
+        blue = tmpCalc;
+        if(blue<0){
+            blue = 0;
+        }else if(blue>255){
+            blue=255;
+        }
+    }
+    return <u8>blue;
+}
+
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
     for(let i = 0;i < offset; i+=2){
         store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>( i* BYTE_PER_IMAGE));
-        store<u32>(offset + 1 + i * BYTE_PER_IMAGE, load<u32>( 1 + i * BYTE_PER_IMAGE));
+        store<u32>(offset + (1 + i) * BYTE_PER_IMAGE, load<u32>( 1 + i * BYTE_PER_IMAGE));
     }
 }
