@@ -2,10 +2,10 @@
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_=>_none (func (param i32)))
+ (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_f64_=>_none (func (param i32 i32 f64)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
- (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
@@ -34,6 +34,7 @@
  (export "Contrast" (func $assembly/index/Contrast))
  (export "Zoom" (func $assembly/index/Zoom))
  (export "Temperature" (func $assembly/index/Temperature))
+ (export "Resize" (func $assembly/index/Resize))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -2794,9 +2795,7 @@
      f64.const 255
     else
      f64.const 329.698727446
-     local.get $3
-     f64.const 60
-     f64.sub
+     f64.const 0
      f64.const -0.1332047592
      call $~lib/math/NativeMath.pow
      f64.mul
@@ -2846,6 +2845,8 @@
     else
      f64.const 288.1221695283
      local.get $3
+     f64.const 60
+     f64.sub
      f64.const -0.0755148492
      call $~lib/math/NativeMath.pow
      f64.mul
@@ -2884,6 +2885,8 @@
      else
       f64.const 138.5177312231
       local.get $3
+      f64.const 10
+      f64.sub
       call $~lib/math/NativeMath.log
       f64.mul
       f64.const 305.0447927307
@@ -2921,6 +2924,89 @@
     i32.const 4
     i32.add
     local.set $4
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Resize (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $5
+  local.get $1
+  local.get $3
+  i32.sub
+  local.tee $1
+  local.get $3
+  i32.add
+  local.set $3
+  local.get $2
+  local.get $0
+  local.get $2
+  i32.sub
+  local.tee $2
+  i32.add
+  local.tee $6
+  local.set $7
+  local.get $1
+  local.set $0
+  loop $for-loop|0
+   local.get $0
+   local.get $3
+   i32.lt_s
+   i32.const 0
+   local.get $0
+   i32.const 0
+   i32.ge_s
+   select
+   if
+    local.get $2
+    local.set $1
+    loop $for-loop|1
+     local.get $1
+     local.get $6
+     i32.lt_s
+     i32.const 0
+     local.get $1
+     i32.const 0
+     i32.ge_s
+     select
+     if
+      local.get $4
+      i32.const 2
+      i32.shl
+      local.get $5
+      i32.add
+      local.get $1
+      local.get $0
+      local.get $7
+      i32.mul
+      i32.add
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store
+      local.get $4
+      i32.const 1
+      i32.add
+      local.set $4
+      local.get $1
+      i32.const 1
+      i32.add
+      local.set $1
+      br $for-loop|1
+     end
+    end
+    local.get $0
+    i32.const 1
+    i32.add
+    local.set $0
     br $for-loop|0
    end
   end

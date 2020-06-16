@@ -164,6 +164,24 @@
             console.log("result test "+resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
          });
+         document.getElementById("resize").addEventListener("click", function () {
+            let newWidth = document.getElementById("widthImg").value;
+            let newHeight = document.getElementById("heightImg").value;
+
+             const canvasTest = document.getElementById("testCanvas");
+             const contextTestCanvas = canvasTest.getContext('2d');
+
+             canvasTest.width = newWidth;
+             canvasTest.height = newHeight;
+             canvasTest.style="border:1px solid #000000;"
+
+            instance.exports.Resize(img.width, img.height, newWidth, newHeight);
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width * img.height * PIXELS_BYTE,
+                 newWidth * newHeight * PIXELS_BYTE);
+             contextTestCanvas.putImageData(new ImageData(resultData, newWidth, newHeight),0,0);
+         })
 
     }
 

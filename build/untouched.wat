@@ -3,12 +3,12 @@
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $f64_f64_=>_i32 (func (param f64 f64) (result i32)))
+ (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_f64_=>_none (func (param i32 i32 f64)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $none_=>_none (func))
- (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $f64_=>_f64 (func (param f64) (result f64)))
  (type $f64_f64_=>_f64 (func (param f64 f64) (result f64)))
@@ -45,6 +45,7 @@
  (export "Contrast" (func $assembly/index/Contrast))
  (export "Zoom" (func $assembly/index/Zoom))
  (export "Temperature" (func $assembly/index/Temperature))
+ (export "Resize" (func $assembly/index/Resize))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -3205,7 +3206,7 @@
    f64.sub
    local.set $1
    f64.const 329.698727446
-   local.get $1
+   local.get $2
    f64.const -0.1332047592
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3573,7 +3574,7 @@
    local.get $1
    local.set $2
    f64.const 99.4708025861
-   local.get $1
+   local.get $2
    call $~lib/math/NativeMath.log
    f64.mul
    f64.const 161.1195681661
@@ -3601,7 +3602,7 @@
    f64.sub
    local.set $2
    f64.const 288.1221695283
-   local.get $1
+   local.get $2
    f64.const -0.0755148492
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3650,7 +3651,7 @@
     f64.sub
     local.set $2
     f64.const 138.5177312231
-    local.get $1
+    local.get $2
     call $~lib/math/NativeMath.log
     f64.mul
     f64.const 305.0447927307
@@ -3750,6 +3751,125 @@
     i32.const 4
     i32.add
     local.set $5
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/Resize (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
+  (local $15 i32)
+  (local $16 i32)
+  (local $17 i32)
+  (local $18 i32)
+  i32.const 0
+  local.set $4
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $5
+  local.get $0
+  local.get $2
+  i32.sub
+  local.set $6
+  local.get $6
+  local.get $2
+  i32.add
+  local.set $7
+  i32.const 1
+  local.set $8
+  i32.const 1
+  local.set $9
+  local.get $1
+  local.get $3
+  i32.sub
+  local.set $10
+  local.get $10
+  local.get $3
+  i32.add
+  local.set $11
+  i32.const 1
+  local.set $12
+  local.get $6
+  local.get $2
+  i32.add
+  local.set $13
+  local.get $10
+  local.set $14
+  loop $for-loop|0
+   local.get $14
+   i32.const 0
+   i32.ge_s
+   if (result i32)
+    local.get $14
+    local.get $11
+    i32.lt_s
+   else
+    i32.const 0
+   end
+   local.set $15
+   local.get $15
+   if
+    local.get $6
+    local.set $16
+    loop $for-loop|1
+     local.get $16
+     i32.const 0
+     i32.ge_s
+     if (result i32)
+      local.get $16
+      local.get $7
+      i32.lt_s
+     else
+      i32.const 0
+     end
+     local.set $17
+     local.get $17
+     if
+      local.get $16
+      local.get $9
+      i32.mul
+      local.get $14
+      local.get $13
+      i32.mul
+      i32.add
+      local.set $18
+      local.get $5
+      local.get $4
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.add
+      local.get $18
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.load
+      i32.store
+      local.get $4
+      i32.const 1
+      i32.add
+      local.set $4
+      local.get $16
+      local.get $8
+      i32.add
+      local.set $16
+      br $for-loop|1
+     end
+    end
+    local.get $14
+    local.get $12
+    i32.add
+    local.set $14
     br $for-loop|0
    end
   end

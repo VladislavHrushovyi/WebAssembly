@@ -234,6 +234,28 @@ function calcBlue(blue: f64, tmpKelvin:f64): u8 {
     return <u8>blue;
 }
 
+export function Resize(width:i32,height:i32, newWidth:i32, newHeight:i32):void {
+    let i = 0;
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    let d1Start = width-newWidth;
+    let d1Limit = d1Start+newWidth;
+    let d1Advance = 1;
+    let d1Multiplier = 1;
+    let d2Start = (height-newHeight);
+    let d2Limit = d2Start+newHeight;
+    let d2Advance = 1;
+    let d2Multiplier = d1Start+newWidth;
+
+    for(let d2 = d2Start; d2 >= 0 && d2 < d2Limit; d2 += d2Advance){
+        for(let d1 = d1Start; d1 >= 0 && d1 < d1Limit; d1+=d1Advance) {
+            let in_idx = ((d1 * d1Multiplier) + (d2 * d2Multiplier));
+            store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            i += 1;
+        }
+    }
+}
+
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
