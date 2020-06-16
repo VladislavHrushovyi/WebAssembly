@@ -176,7 +176,7 @@ function calcRed(red: f64, tmpKelvin:f64):u8 {
     if(tmpKelvin<=66){
         red = 255
     }else{
-        tmpCalc = tmpKelvin-60;
+        tmpKelvin = tmpKelvin-60;
         tmpCalc =  329.698727446 * Math.pow(tmpCalc ,-0.1332047592);
         red = tmpCalc;
         if(red < 0){
@@ -193,7 +193,7 @@ function calcGreen(green: f64, tmpKelvin:f64):u8 {
     let tmpCalc = <f64>0;
     if( tmpKelvin <= 66) {
         tmpCalc = tmpKelvin;
-        tmpCalc = 99.4708025861 * Math.log(green) - 161.1195681661;
+        tmpCalc = 99.4708025861 * Math.log(tmpCalc) - 161.1195681661;
         green = tmpCalc;
         if(green < 0)
         green = 0;
@@ -202,7 +202,7 @@ function calcGreen(green: f64, tmpKelvin:f64):u8 {
         }
     }else{
         tmpCalc = tmpKelvin - 60;
-        tmpCalc = 288.1221695283 * (Math.pow(green,-0.0755148492));
+        tmpCalc = 288.1221695283 * (Math.pow(tmpCalc,-0.0755148492));
         green = tmpCalc;
         if(green < 0){
             green=0;
@@ -223,7 +223,7 @@ function calcBlue(blue: f64, tmpKelvin:f64): u8 {
     }
     else{
         tmpCalc = tmpKelvin-10;
-        tmpCalc = 138.5177312231 * Math.log(blue) - 305.0447927307;
+        tmpCalc = 138.5177312231 * Math.log(tmpCalc) - 305.0447927307;
         blue = tmpCalc;
         if(blue<0){
             blue = 0;

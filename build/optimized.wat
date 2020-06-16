@@ -2764,8 +2764,8 @@
   f64.add
  )
  (func $assembly/index/Temperature (param $0 i32) (param $1 i32) (param $2 f64)
-  (local $3 i32)
-  (local $4 f64)
+  (local $3 f64)
+  (local $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -2778,23 +2778,23 @@
   local.get $2
   f64.const 100
   f64.div
-  local.set $4
+  local.set $3
   loop $for-loop|0
-   local.get $3
+   local.get $4
    local.get $0
    i32.lt_s
    if
-    local.get $3
+    local.get $4
     i32.load8_u
     drop
-    local.get $4
+    local.get $3
     f64.const 66
     f64.le
     if (result f64)
      f64.const 255
     else
      f64.const 329.698727446
-     local.get $4
+     local.get $3
      f64.const 60
      f64.sub
      f64.const -0.1332047592
@@ -2816,16 +2816,15 @@
     end
     i32.trunc_f64_u
     local.set $5
-    local.get $3
-    i32.load8_u offset=1
-    f64.convert_i32_u
-    local.set $2
     local.get $4
+    i32.load8_u offset=1
+    drop
+    local.get $3
     f64.const 66
     f64.le
     if
      f64.const 99.4708025861
-     local.get $2
+     local.get $3
      call $~lib/math/NativeMath.log
      f64.mul
      f64.const 161.1195681661
@@ -2846,7 +2845,7 @@
      end
     else
      f64.const 288.1221695283
-     local.get $2
+     local.get $3
      f64.const -0.0755148492
      call $~lib/math/NativeMath.pow
      f64.mul
@@ -2868,24 +2867,23 @@
     local.get $2
     i32.trunc_f64_u
     local.set $6
-    local.get $3
-    i32.load8_u offset=2
-    f64.convert_i32_u
-    local.set $2
     local.get $4
+    i32.load8_u offset=2
+    drop
+    local.get $3
     f64.const 66
     f64.ge
     if (result f64)
      f64.const 255
     else
-     local.get $4
+     local.get $3
      f64.const 19
      f64.le
      if (result f64)
       f64.const 0
      else
       f64.const 138.5177312231
-      local.get $2
+      local.get $3
       call $~lib/math/NativeMath.log
       f64.mul
       f64.const 305.0447927307
@@ -2908,7 +2906,7 @@
     i32.trunc_f64_u
     local.set $7
     local.get $0
-    local.get $3
+    local.get $4
     i32.add
     local.tee $1
     local.get $5
@@ -2919,10 +2917,10 @@
     local.get $1
     local.get $7
     i32.store8 offset=2
-    local.get $3
+    local.get $4
     i32.const 4
     i32.add
-    local.set $3
+    local.set $4
     br $for-loop|0
    end
   end

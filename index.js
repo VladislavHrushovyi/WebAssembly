@@ -100,7 +100,6 @@
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
          });
-
          document.getElementById("contrast").addEventListener("change",function () {
              let value = document.getElementById("contrast").value;
              instance.exports.Contrast(img.width,img.height, value);
@@ -121,7 +120,7 @@
          });
          document.getElementById("temperature").addEventListener("change",function () {
              let value = document.getElementById("temperature").value;
-             instance.exports.Temperature(img.width,img.height, value);
+             instance.exports.Temperature(img.width,img.height, 10000);
 
              resultData =  new Uint8ClampedArray(
                  memory.buffer,
@@ -137,7 +136,6 @@
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
          });
-
          document.getElementById("2xBTN").addEventListener("click", function () {
              const canvasTest = document.getElementById("testCanvas");
              const contextTestCanvas = canvasTest.getContext('2d');

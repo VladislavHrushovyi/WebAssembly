@@ -3203,9 +3203,9 @@
    local.get $1
    f64.const 60
    f64.sub
-   local.set $2
+   local.set $1
    f64.const 329.698727446
-   local.get $2
+   local.get $1
    f64.const -0.1332047592
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3573,7 +3573,7 @@
    local.get $1
    local.set $2
    f64.const 99.4708025861
-   local.get $0
+   local.get $1
    call $~lib/math/NativeMath.log
    f64.mul
    f64.const 161.1195681661
@@ -3601,7 +3601,7 @@
    f64.sub
    local.set $2
    f64.const 288.1221695283
-   local.get $0
+   local.get $1
    f64.const -0.0755148492
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3650,7 +3650,7 @@
     f64.sub
     local.set $2
     f64.const 138.5177312231
-    local.get $0
+    local.get $1
     call $~lib/math/NativeMath.log
     f64.mul
     f64.const 305.0447927307
