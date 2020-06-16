@@ -182,36 +182,79 @@
                  newWidth * newHeight * PIXELS_BYTE);
              contextTestCanvas.putImageData(new ImageData(resultData, newWidth, newHeight),0,0);
          })
+         //я не знаю как сделать листенер
+         document.getElementById("balanceRed").addEventListener("change", function () {
+            let redLevel = document.getElementById("balanceRed").value;
+            let blueLevel = document.getElementById("balanceBlue").value;
+            let greenLevel = document.getElementById("balanceGreen").value;
 
+             instance.exports.BalanceColor(img.width,img.height, redLevel, blueLevel, greenLevel);
+
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         });
+         document.getElementById("balanceBlue").addEventListener("change", function () {
+            let redLevel = document.getElementById("balanceRed").value;
+            let blueLevel = document.getElementById("balanceBlue").value;
+            let greenLevel = document.getElementById("balanceGreen").value;
+
+            instance.exports.BalanceColor(img.width,img.height, redLevel, blueLevel, greenLevel);
+
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         });
+         document.getElementById("balanceGreen").addEventListener("change", function () {
+            let redLevel = document.getElementById("balanceRed").value;
+            let blueLevel = document.getElementById("balanceBlue").value;
+            let greenLevel = document.getElementById("balanceGreen").value;
+
+            instance.exports.BalanceColor(img.width,img.height, redLevel, blueLevel, greenLevel);
+
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         })
+         //------------------------------
     }
 
-        async function initWasmModule(){
-            let memory = new WebAssembly.Memory({initial: 1});
+    async function initWasmModule(){
+        let memory = new WebAssembly.Memory({initial: 1});
 
-            const imports = {
-                env: {
-                    memory,
-                    abort: function () {
-                        throw new Error('Some error')
-                    }
+        const imports = {
+            env: {
+                memory,
+                abort: function () {
+                    throw new Error('Some error')
                 }
-            };
-
-            const {instance} = await  WebAssembly.instantiate(
-                await fetch("./build/optimized.wasm").then(r => r.arrayBuffer()),
-                imports
-            );
-
-            if(instance.exports.memory){
-                memory = instance.exports.memory;
             }
+        };
 
-            return {
-                instance,
-                memory
-            }
+        const {instance} = await  WebAssembly.instantiate(
+            await fetch("./build/optimized.wasm").then(r => r.arrayBuffer()),
+            imports
+        );
+
+        if(instance.exports.memory){
+            memory = instance.exports.memory;
         }
-        initWasmModule().then(asmInvert)
+
+        return {
+            instance,
+            memory
+        }
+    }
+    initWasmModule().then(asmInvert)
  })();
 
  function invert(){

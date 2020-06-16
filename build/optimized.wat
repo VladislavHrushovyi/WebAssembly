@@ -6,6 +6,7 @@
  (type $i32_i32_f64_=>_none (func (param i32 i32 f64)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
+ (type $i32_i32_f64_f64_f64_=>_none (func (param i32 i32 f64 f64 f64)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
@@ -35,6 +36,7 @@
  (export "Zoom" (func $assembly/index/Zoom))
  (export "Temperature" (func $assembly/index/Temperature))
  (export "Resize" (func $assembly/index/Resize))
+ (export "BalanceColor" (func $assembly/index/BalanceColor))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -3007,6 +3009,102 @@
     i32.const 1
     i32.add
     local.set $0
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/BalanceColor (param $0 i32) (param $1 i32) (param $2 f64) (param $3 f64) (param $4 f64)
+  (local $5 i32)
+  (local $6 f64)
+  (local $7 f64)
+  (local $8 f64)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $0
+  loop $for-loop|0
+   local.get $5
+   local.get $0
+   i32.lt_s
+   if
+    f64.const 255
+    local.get $3
+    f64.div
+    local.get $5
+    i32.load8_u
+    f64.convert_i32_u
+    f64.mul
+    local.set $7
+    f64.const 255
+    local.get $2
+    f64.div
+    local.get $5
+    i32.load8_u offset=2
+    f64.convert_i32_u
+    f64.mul
+    local.set $8
+    f64.const 255
+    local.get $4
+    f64.div
+    local.get $5
+    i32.load8_u offset=1
+    f64.convert_i32_u
+    f64.mul
+    local.tee $6
+    f64.const 255
+    f64.gt
+    if (result f64)
+     f64.const 255
+    else
+     f64.const 0
+     local.get $6
+     local.get $6
+     f64.const 0
+     f64.lt
+     select
+    end
+    local.set $6
+    local.get $0
+    local.get $5
+    i32.add
+    local.tee $1
+    f64.const 255
+    f64.const 0
+    local.get $7
+    local.get $7
+    f64.const 0
+    f64.lt
+    select
+    local.get $7
+    f64.const 255
+    f64.gt
+    select
+    i32.trunc_f64_u
+    i32.store8
+    local.get $1
+    local.get $6
+    i32.trunc_f64_u
+    i32.store8 offset=1
+    local.get $1
+    f64.const 255
+    f64.const 0
+    local.get $8
+    local.get $8
+    f64.const 0
+    f64.lt
+    select
+    local.get $8
+    f64.const 255
+    f64.gt
+    select
+    i32.trunc_f64_u
+    i32.store8 offset=2
+    local.get $5
+    i32.const 4
+    i32.add
+    local.set $5
     br $for-loop|0
    end
   end

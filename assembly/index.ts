@@ -256,6 +256,38 @@ export function Resize(width:i32,height:i32, newWidth:i32, newHeight:i32):void {
     }
 }
 
+export function BalanceColor(width:i32, height:i32, redLevel:f64, blueLevel:f64, greenLevel:f64):void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    let blue = <f64>0;
+    let green = <f64>0;
+    let red = <f64>0;
+
+    let blueLevelFloat = blueLevel;
+    let greenLevelFloat = greenLevel;
+    let redLevelFloat = redLevel;
+
+    for (let i = 0; i < offset; i += 4)
+    {
+        red = 255.0 / blueLevelFloat * load<u8>(i);
+        blue = 255.0 / greenLevelFloat * load<u8>(i+1);
+        green = 255.0 / redLevelFloat * load<u8>(i+2);
+
+        if (blue > 255) {blue = 255;}
+        else if (blue < 0) {blue = 0;}
+
+        if (green > 255) {green = 255;}
+        else if (green < 0) {green = 0;}
+
+        if (red > 255) {red = 255;}
+        else if (red < 0) {red = 0;}
+
+        store<u8>(offset + i, <u8>red);
+        store<u8>(offset + i+1, <u8>blue);
+        store<u8>(offset + i+2, <u8>green);
+    }
+}
+
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
