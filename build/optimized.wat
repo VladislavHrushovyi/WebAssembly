@@ -2797,7 +2797,9 @@
      f64.const 255
     else
      f64.const 329.698727446
-     f64.const 0
+     local.get $3
+     f64.const 60
+     f64.sub
      f64.const -0.1332047592
      call $~lib/math/NativeMath.pow
      f64.mul

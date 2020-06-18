@@ -120,7 +120,7 @@
          });
          document.getElementById("temperature").addEventListener("change",function () {
              let value = document.getElementById("temperature").value;
-             instance.exports.Temperature(img.width,img.height, 10000);
+             instance.exports.Temperature(img.width,img.height, value);
 
              resultData =  new Uint8ClampedArray(
                  memory.buffer,

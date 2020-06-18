@@ -3194,8 +3194,11 @@
  )
  (func $assembly/index/calcRed (param $0 f64) (param $1 f64) (result i32)
   (local $2 f64)
+  (local $3 f64)
   f64.const 0
   local.set $2
+  f64.const 0
+  local.set $3
   local.get $1
   f64.const 66
   f64.le
@@ -3206,9 +3209,9 @@
    local.get $1
    f64.const 60
    f64.sub
-   local.set $1
+   local.set $3
    f64.const 329.698727446
-   local.get $2
+   local.get $3
    f64.const -0.1332047592
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3567,16 +3570,19 @@
  )
  (func $assembly/index/calcGreen (param $0 f64) (param $1 f64) (result i32)
   (local $2 f64)
+  (local $3 f64)
   f64.const 0
   local.set $2
+  f64.const 0
+  local.set $3
   local.get $1
   f64.const 66
   f64.le
   if
    local.get $1
-   local.set $2
+   local.set $3
    f64.const 99.4708025861
-   local.get $2
+   local.get $3
    call $~lib/math/NativeMath.log
    f64.mul
    f64.const 161.1195681661
@@ -3602,9 +3608,9 @@
    local.get $1
    f64.const 60
    f64.sub
-   local.set $2
+   local.set $3
    f64.const 288.1221695283
-   local.get $2
+   local.get $3
    f64.const -0.0755148492
    call $~lib/math/NativeMath.pow
    f64.mul
@@ -3632,8 +3638,11 @@
  )
  (func $assembly/index/calcBlue (param $0 f64) (param $1 f64) (result i32)
   (local $2 f64)
+  (local $3 f64)
   f64.const 0
   local.set $2
+  f64.const 0
+  local.set $3
   local.get $1
   f64.const 66
   f64.ge
@@ -3651,9 +3660,9 @@
     local.get $1
     f64.const 10
     f64.sub
-    local.set $2
+    local.set $3
     f64.const 138.5177312231
-    local.get $2
+    local.get $3
     call $~lib/math/NativeMath.log
     f64.mul
     f64.const 305.0447927307
