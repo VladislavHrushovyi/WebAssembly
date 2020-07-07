@@ -1,21 +1,24 @@
 html, body {
   height: 100%;
-  weight: 100%;
+  width: 100%;
+  margin: 0;
 }
-.workField {
+.work-field {
   width: 100%;
   height: 80%;
   background-color: #313638;
-  display: inline-block;
 }
 
-.settingField {
-
-}
-
-.edge_block {
+.setting-field {
   background-color: #bcbcbc;
-  width: 15%;
+  width: 100%;
   height: 20%;
+}
+.setting-field p {
+  text-align: center;
+}
+
+.setting-block {
+  width: 15%;
   display: inline-block;
 }

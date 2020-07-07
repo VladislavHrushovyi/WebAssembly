@@ -7,73 +7,51 @@
         <title></title>
     </head>
     <body>
-    <div class="workField">
-        <section class="section-inline-block">
-            <canvas id ="canvas"></canvas>
-            <p>
-                <input name="files[]" type="file" id = "upload" multiple>
-            </p>
-
-            <canvas id = "testCanvas"></canvas>
-        </section>
-    </div>
-
-    <section class="section-inline-block">
-    <div class="edge_block">
-        <p>
-            <input type="radio" id="none"
-                   name="contact" value="email">
+      <div class="setting-field">
+        <div class="setting-block">
+          <input type="radio" id="none">
             <label for="none">None</label>
-        </p>
-        <p>
-            <input type="radio" id="invertColor"
-                   name="contact" value="phone">
+          <input type="radio" id="invertColor">
             <label for="invertColor">Invert color</label>
-        </p>
-        <p>
-            <input type="radio" id="grayScale"
-                   name="contact" value="mail">
+          <input type="radio" id="grayScale">
             <label for="grayScale">Gray scale</label>
-        </p>
-    </div>
-        <div class="edge_block">
-            <p>
-                <input id="visibility" type="range" min="0" max="255" step="1" value="0">
-                <label for = "visibility">
-                    Visible
-                </label>
-            </p>
-            <p>
-                <button id = "rotate">Rotate</button>
-            </p>
-            <p>
-                <button id = "2xBTN">Image ZOOM 2x</button>
-            </p>
         </div>
-        <div class="edge_block">
-            <p>
-            <input id = "contrast" type="range" max="10" min="1" value="0" step="0.1">
-            <label for = "contrast">
-                Contrast
-            </label>
-            </p>
-            <p>
-                <input id = "temperature" type="range" max="4000" min="1000" value="1000" step="1">
-                <label for = "temperature">
-                    Temperature
-                </label>
-            </p>
+
+        <div class="setting-block">
+          <input id="visibility" type="range" min="0" max="255" step="1" value="0">
+            <label for = "visibility">Visible</label>
+          <button id = "rotate">Rotate</button>
+          <button id = "2xBTN">Image ZOOM 2x</button>
         </div>
-        <div class="edge_block">
-            <p><label>Width</label><input type="number" min="0" name="width" id="widthImg"><span></span></p>
-            <p><label>Height</label><input type="number" min="0" name="height" id="heightImg"><span></span></p>
-            <p><button id = "resize">Resize</button></p>
+
+        <div class="setting-block">
+          <input id = "contrast" type="range" max="10" min="1" value="0" step="0.1">
+            <label for = "contrast">Contrast</label>
+          <input id = "temperature" type="range" max="4000" min="-4000" value="0" step="1">
+            <label for = "temperature">Temperature</label>
+
         </div>
-        <div class="edge_block">
-            <p><label>Red</label><input id="balanceRed" type="range" min="0" max="255" step="0.1" value="1"></p>
-            <p><label>Green</label><input id="balanceGreen" type="range" min="0" max="255" step="0.1" value="1"></p>
-            <p><label>Blue</label><input id="balanceBlue" type="range" min="0" max="255" step="0.1" value="1"></p>
+
+        <div class="setting-block">
+          <input type="number" min="0" name="width" id="widthImg">
+          <label for="widthImg">Width</label>
+          <!-- <span></span> -->
+          <label for="heightImg">Height</label>
+          <input type="number" min="0" name="height" id="heightImg">
+          <!-- <span></span> -->
+          <button id = "resize">Resize</button>
         </div>
-    </section>
+
+        <div class="setting-block">
+          <label>Red</label><input id="balanceRed" type="range" min="0" max="255" step="0.1" value="1">
+          <label>Green</label><input id="balanceGreen" type="range" min="0" max="255" step="0.1" value="1">
+          <label>Blue</label><input id="balanceBlue" type="range" min="0" max="255" step="0.1" value="1">
+        </div>
+      </div>
+      <div class="work-field">
+        <canvas id ="canvas"></canvas>
+        <input name="files[]" type="file" id = "upload" multiple>
+        <canvas id = "testCanvas"></canvas>
+      </div>
     </body>
 </html>
