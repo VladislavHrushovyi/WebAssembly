@@ -14,11 +14,10 @@ html, body {
   width: 100%;
   height: 20%;
 }
-.setting-field p {
-  text-align: center;
-}
-
 .setting-block {
-  width: 15%;
+  /* width: 15%; */
   display: inline-block;
+}
+.setting {
+  display: block;
 }
