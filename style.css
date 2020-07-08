@@ -26,3 +26,12 @@ html, body {
 .setting {
   display: block;
 }
+input[type=range] {
+  display: block;
+}
+label {
+  white-space: pre;
+}
+#widthImg, #heightImg {
+  width: 4em;
+}
