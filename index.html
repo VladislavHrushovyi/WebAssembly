@@ -10,24 +10,18 @@
       <div class="setting-field">
         <div class="setting-block">
           <div class = "seting">
-            <input type="radio" id="none">
+            <input type="radio" id="none" name="filter">
               <label for="none">None</label>
           </div>
           <div class = "seting">
-            <input type="radio" id="invertColor">
+            <input type="radio" id="invertColor" name="filter">
               <label for="invertColor">Invert color</label>
           </div>
           <div class = "seting">
-            <input type="radio" id="grayScale">
+            <input type="radio" id="grayScale" name="filter">
               <label for="grayScale">Gray scale</label>
           </div>
         </div>
-
-        <div class="setting-block">
-          <div class="setting"> <button id = "rotate">Rotate</button> </div>
-          <div class="setting"> <button id = "2xBTN">Image ZOOM 2x</button> </div>
-        </div>
-
         <div class="setting-block">
           <div class="setting">
             <input id="visibility" type="range" min="0" max="255" step="1" value="0">
@@ -38,8 +32,8 @@
               <label for = "contrast">Contrast</label>
           </div>
           <div class="setting">
-            <input id = "temperature" type="range" max="4000" min="-4000" value="0" step="1">
-              <label for = "temperature">Temperature</label>
+            <input id="povzunok" type="range" max="100" min="-100" value="0" step="1">
+              <label for = "povzunok">Povzunok</label>
           </div>
         </div>
 
@@ -69,10 +63,16 @@
               <label for="balanceBlue">Blue</label>
           </div>
         </div>
+        <div class="setting-block">
+          <div class="setting">
+            <input name="files[]" type="file" id = "upload" multiple>
+          </div>
+          <div class="setting"><button id = "rotate">Rotate</button></div>
+          <div class="setting"><button id = "2xBTN">Image ZOOM 2x</button></div>
+        </div>
       </div>
       <div class="work-field">
         <canvas id ="canvas"></canvas>
-        <input name="files[]" type="file" id = "upload" multiple>
         <canvas id = "testCanvas"></canvas>
       </div>
     </body>
