@@ -100,7 +100,7 @@
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
          });
-         document.getElementById("contrast").addEventListener("change",function () {
+         document.getElementById("contrast").addEventListener('change',function () {
              let value = document.getElementById("contrast").value;
              instance.exports.Contrast(img.width,img.height, value);
 
@@ -118,24 +118,24 @@
                  context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
              }
          });
-         document.getElementById("temperature").addEventListener("change",function () {
-             let value = document.getElementById("temperature").value;
-             instance.exports.Temperature(img.width,img.height, value);
-
-             resultData =  new Uint8ClampedArray(
-                 memory.buffer,
-                 img.width*img.height*PIXELS_BYTE,
-                 img.width*img.height*PIXELS_BYTE);
-             if (degree === 90 || degree === 270) {
-                 canvas.width = img.height;
-                 canvas.height = img.width;
-                 context.putImageData(new ImageData(resultData, img.height, img.width), 0, 0);
-             } else {
-                 canvas.width = img.width;
-                 canvas.height = img.height;
-                 context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
-             }
-         });
+         // document.getElementById("temperature").addEventListener("change",function () {
+         //     let value = document.getElementById("temperature").value;
+         //     instance.exports.Temperature(img.width,img.height, value);
+         //
+         //     resultData =  new Uint8ClampedArray(
+         //         memory.buffer,
+         //         img.width*img.height*PIXELS_BYTE,
+         //         img.width*img.height*PIXELS_BYTE);
+         //     if (degree === 90 || degree === 270) {
+         //         canvas.width = img.height;
+         //         canvas.height = img.width;
+         //         context.putImageData(new ImageData(resultData, img.height, img.width), 0, 0);
+         //     } else {
+         //         canvas.width = img.width;
+         //         canvas.height = img.height;
+         //         context.putImageData(new ImageData(resultData, img.width, img.height), 0, 0);
+         //     }
+         // });
          document.getElementById("2xBTN").addEventListener("click", function () {
              const canvasTest = document.getElementById("testCanvas");
              const contextTestCanvas = canvasTest.getContext('2d');
