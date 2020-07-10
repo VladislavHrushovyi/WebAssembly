@@ -295,10 +295,9 @@ export function BalanceColor(width:i32, height:i32, redLevel:f64, blueLevel:f64,
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
-    for(let i = 0;i < offset; i++){
-        store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>( i* BYTE_PER_IMAGE));
-        store<u32>(offset + (1 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
-        store<u32>(offset + (2 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
-        store<u32>(offset + (3 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
+    for(let i = 0;i < offset - 4; i++){
+        for(let j = i; j < i + 4; j++){
+            store<u32>(offset + j * BYTE_PER_IMAGE, load<u32>( i* BYTE_PER_IMAGE));
+        }
     }
 }
