@@ -10,8 +10,8 @@ html, body {
   background-color: #313638;
 }
 .work-field canvas {
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 50%;
+  max-height: 100%;
 }
 
 .setting-field {
@@ -20,11 +20,19 @@ html, body {
   height: 20%;
 }
 .setting-block {
-  /* width: 15%; */
   display: inline-block;
+  border-right: dashed;
+  border-color: #313638;
+  max-height: 100%;
+}
+.setting-block p{
+  text-align: center;
+  border-bottom: dashed;
+  border-color: #313638;
 }
 .setting {
   display: block;
+  top: 1%;
 }
 input[type=range] {
   display: block;
