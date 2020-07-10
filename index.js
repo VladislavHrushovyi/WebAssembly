@@ -145,7 +145,7 @@
              canvasTest.style="border:1px solid #000000;"
 
              const bytePerImageTest = img.width * img.height * PIXELS_BYTE;
-             const minMemSizeTest = bytePerImageTest*5;
+             const minMemSizeTest = bytePerImageTest*8;
              if(memory.buffer.byteLength < minMemSizeTest){
                  const pagesNeededTest = Math.ceil(minMemSizeTest/PAGES);
                  memory.grow(pagesNeededTest);
@@ -154,12 +154,12 @@
 
              new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
 
-             instance.exports.Zoom(img.width,img.height);
-            console.log("після зума " + memory.buffer.byteLength);
+             instance.exports.ZoomTest(img.width,img.height);
+             console.log("після зума " + memory.buffer.byteLength);
              const resultTest = new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
-                 (img.width*img.height*PIXELS_BYTE) * 4);
+                 img.width*img.height*PIXELS_BYTE * 4);
 
             console.log("result test "+resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);

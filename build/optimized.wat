@@ -1508,37 +1508,41 @@
   i32.mul
   i32.const 2
   i32.shl
-  local.set $5
+  local.set $3
+  local.get $0
+  local.set $2
   loop $for-loop|0
-   local.get $3
+   local.get $4
    local.get $1
    i32.lt_s
    i32.const 0
-   local.get $3
+   local.get $4
    i32.const 0
    i32.ge_s
    select
    if
     i32.const 0
-    local.set $2
+    local.set $0
     loop $for-loop|1
-     local.get $2
      local.get $0
+     local.get $2
      i32.lt_s
      i32.const 0
-     local.get $2
+     local.get $0
      i32.const 0
      i32.ge_s
      select
      if
-      local.get $4
+      local.get $5
+      i32.const 1
+      i32.add
       i32.const 2
       i32.shl
-      local.get $5
-      i32.add
-      local.get $2
-      local.get $0
       local.get $3
+      i32.add
+      local.get $0
+      local.get $2
+      local.get $4
       i32.mul
       i32.add
       local.tee $6
@@ -1546,34 +1550,54 @@
       i32.shl
       i32.load
       i32.store
-      local.get $4
-      i32.const 1
+      local.get $5
+      i32.const 2
       i32.add
-      local.tee $4
       i32.const 2
       i32.shl
-      local.get $5
+      local.get $3
       i32.add
       local.get $6
       i32.const 2
       i32.shl
       i32.load
       i32.store
-      local.get $4
+      local.get $5
+      i32.const 3
+      i32.add
+      i32.const 2
+      i32.shl
+      local.get $3
+      i32.add
+      local.get $6
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store
+      local.get $5
+      i32.const 4
+      i32.add
+      local.tee $5
+      i32.const 2
+      i32.shl
+      local.get $3
+      i32.add
+      local.get $6
+      i32.const 2
+      i32.shl
+      i32.load
+      i32.store
+      local.get $0
       i32.const 1
       i32.add
-      local.set $4
-      local.get $2
-      i32.const 1
-      i32.add
-      local.set $2
+      local.set $0
       br $for-loop|1
      end
     end
-    local.get $3
+    local.get $4
     i32.const 1
     i32.add
-    local.set $3
+    local.set $4
     br $for-loop|0
    end
   end
@@ -3144,10 +3168,34 @@
     local.get $2
     i32.const 2
     i32.shl
-    i32.load offset=1
+    i32.load
     i32.store
     local.get $2
     i32.const 2
+    i32.add
+    i32.const 2
+    i32.shl
+    local.get $0
+    i32.add
+    local.get $2
+    i32.const 2
+    i32.shl
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 3
+    i32.add
+    i32.const 2
+    i32.shl
+    local.get $0
+    i32.add
+    local.get $2
+    i32.const 2
+    i32.shl
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 1
     i32.add
     local.set $2
     br $for-loop|0

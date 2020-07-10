@@ -2171,6 +2171,8 @@
       local.set $16
       local.get $2
       local.get $3
+      i32.const 1
+      i32.add
       global.get $assembly/index/BYTE_PER_IMAGE
       i32.mul
       i32.add
@@ -2179,12 +2181,34 @@
       i32.mul
       i32.load
       i32.store
-      local.get $3
-      i32.const 1
-      i32.add
-      local.set $3
       local.get $2
       local.get $3
+      i32.const 2
+      i32.add
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.add
+      local.get $16
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.load
+      i32.store
+      local.get $2
+      local.get $3
+      i32.const 3
+      i32.add
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.add
+      local.get $16
+      global.get $assembly/index/BYTE_PER_IMAGE
+      i32.mul
+      i32.load
+      i32.store
+      local.get $2
+      local.get $3
+      i32.const 4
+      i32.add
       global.get $assembly/index/BYTE_PER_IMAGE
       i32.mul
       i32.add
@@ -2194,7 +2218,7 @@
       i32.load
       i32.store
       local.get $3
-      i32.const 1
+      i32.const 4
       i32.add
       local.set $3
       local.get $14
@@ -4061,15 +4085,37 @@
     global.get $assembly/index/BYTE_PER_IMAGE
     i32.mul
     i32.add
-    i32.const 1
     local.get $3
     global.get $assembly/index/BYTE_PER_IMAGE
     i32.mul
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 2
+    local.get $3
     i32.add
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.add
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.load
+    i32.store
+    local.get $2
+    i32.const 3
+    local.get $3
+    i32.add
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
+    i32.add
+    local.get $3
+    global.get $assembly/index/BYTE_PER_IMAGE
+    i32.mul
     i32.load
     i32.store
     local.get $3
-    i32.const 2
+    i32.const 1
     i32.add
     local.set $3
     br $for-loop|0

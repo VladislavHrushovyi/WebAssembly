@@ -146,12 +146,13 @@ export function Zoom(width: i32, height:i32): void {
     let d2Multiplier = width;
 
     for(let d2 = d2Start; d2 >= 0 && d2 < d2Limit; d2 += d2Advance){
-        for(let d1 = d1Start; d1 >= 0 && d1 < d1Limit; d1+=d1Advance) {
+        for(let d1 = d1Start;d1 >= 0 && d1 < d1Limit; d1 += d1Advance) {
             let in_idx = ((d1 * d1Multiplier) + (d2 * d2Multiplier));
-            store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            i += 1;
-            store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            i += 1;
+            store<u32>(offset + (i+1) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            store<u32>(offset + (i+2) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            store<u32>(offset + (i+3) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            store<u32>(offset + (i+4) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+            i+=4;
         }
     }
 }
@@ -294,8 +295,10 @@ export function BalanceColor(width:i32, height:i32, redLevel:f64, blueLevel:f64,
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
-    for(let i = 0;i < offset; i+=2){
+    for(let i = 0;i < offset; i++){
         store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>( i* BYTE_PER_IMAGE));
-        store<u32>(offset + (1 + i) * BYTE_PER_IMAGE, load<u32>( 1 + i * BYTE_PER_IMAGE));
+        store<u32>(offset + (1 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
+        store<u32>(offset + (2 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
+        store<u32>(offset + (3 + i) * BYTE_PER_IMAGE, load<u32>( i * BYTE_PER_IMAGE));
     }
 }
