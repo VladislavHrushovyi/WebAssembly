@@ -154,12 +154,12 @@
 
              new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
 
-             instance.exports.ZoomTest(img.width,img.height);
+             instance.exports.Zoom(img.width,img.height);
              console.log("після зума " + memory.buffer.byteLength);
              const resultTest = new Uint8ClampedArray(
                  memory.buffer,
                  img.width*img.height*PIXELS_BYTE,
-                 img.width*img.height*PIXELS_BYTE * 4);
+                 img.width*img.height*PIXELS_BYTE*4);
 
             console.log("result test "+resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
@@ -226,6 +226,23 @@
              context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
          })
          //------------------------------
+
+         document.getElementById("Pixel").addEventListener("click", function () {
+             const canvasTest = document.getElementById("testCanvas");
+             const contextTestCanvas = canvasTest.getContext('2d');
+
+             canvasTest.width = img.width;
+             canvasTest.height = img.height;
+             canvasTest.style="border:1px solid #000000;"
+             instance.exports.Pixelization(img.width,img.height);
+             console.log("після зума " + memory.buffer.byteLength);
+             const resultTest = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+
+             contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
+         })
     }
 
     async function initWasmModule(){
