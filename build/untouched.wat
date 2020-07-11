@@ -1,7 +1,7 @@
 (module
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $i32_=>_none (func (param i32)))
  (type $f64_f64_=>_i32 (func (param f64 f64) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_f64_=>_none (func (param i32 i32 f64)))
@@ -4028,8 +4028,7 @@
    end
   end
  )
- (func $assembly/index/Pixelization (param $0 i32) (param $1 i32)
-  (local $2 i32)
+ (func $assembly/index/Pixelization (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4044,137 +4043,122 @@
   (local $14 i32)
   (local $15 i32)
   (local $16 i32)
+  (local $17 i32)
+  (local $18 i32)
+  (local $19 i32)
   local.get $0
   local.get $1
   i32.mul
   global.get $assembly/index/BYTE_PER_IMAGE
   i32.mul
-  local.set $2
-  i32.const 0
   local.set $3
   i32.const 0
   local.set $4
+  i32.const 0
+  local.set $5
+  i32.const 0
+  local.set $6
   local.get $0
   i32.const 2
   i32.mul
-  local.set $5
-  i32.const 4
-  local.set $6
-  i32.const 1
   local.set $7
-  i32.const 0
+  i32.const 4
   local.set $8
+  i32.const 1
+  local.set $9
+  i32.const 0
+  local.set $10
   local.get $1
   i32.const 2
   i32.mul
-  local.set $9
+  local.set $11
   i32.const 4
-  local.set $10
+  local.set $12
   local.get $0
   i32.const 2
   i32.div_s
-  local.set $11
-  local.get $8
-  local.set $12
+  local.set $13
+  local.get $10
+  local.set $14
   loop $for-loop|0
-   local.get $12
+   local.get $14
    i32.const 0
    i32.ge_s
    if (result i32)
-    local.get $12
-    local.get $9
+    local.get $14
+    local.get $11
     i32.lt_s
    else
     i32.const 0
    end
-   local.set $13
-   local.get $13
+   local.set $15
+   local.get $15
    if
-    local.get $4
-    local.set $14
+    local.get $6
+    local.set $16
     loop $for-loop|1
-     local.get $14
+     local.get $16
      i32.const 0
      i32.ge_s
      if (result i32)
-      local.get $14
-      local.get $5
+      local.get $16
+      local.get $7
       i32.lt_s
      else
       i32.const 0
      end
-     local.set $15
-     local.get $15
+     local.set $17
+     local.get $17
      if
+      local.get $16
+      local.get $9
+      i32.mul
       local.get $14
-      local.get $7
+      local.get $13
       i32.mul
-      local.get $12
-      local.get $11
-      i32.mul
+      i32.add
+      local.set $18
+      loop $while-continue|2
+       local.get $5
+       i32.const 4
+       i32.lt_s
+       local.set $19
+       local.get $19
+       if
+        local.get $3
+        local.get $4
+        global.get $assembly/index/BYTE_PER_IMAGE
+        i32.mul
+        i32.add
+        local.get $18
+        global.get $assembly/index/BYTE_PER_IMAGE
+        i32.mul
+        i32.load
+        i32.store
+        local.get $4
+        i32.const 1
+        i32.add
+        local.set $4
+        local.get $5
+        i32.const 1
+        i32.add
+        local.set $5
+        br $while-continue|2
+       end
+      end
+      i32.const 0
+      local.set $5
+      local.get $16
+      local.get $8
       i32.add
       local.set $16
-      local.get $2
-      local.get $3
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.add
-      local.get $16
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.load
-      i32.store
-      local.get $2
-      local.get $3
-      i32.const 1
-      i32.add
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.add
-      local.get $16
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.load
-      i32.store
-      local.get $2
-      local.get $3
-      i32.const 2
-      i32.add
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.add
-      local.get $16
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.load
-      i32.store
-      local.get $2
-      local.get $3
-      i32.const 3
-      i32.add
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.add
-      local.get $16
-      global.get $assembly/index/BYTE_PER_IMAGE
-      i32.mul
-      i32.load
-      i32.store
-      local.get $3
-      i32.const 4
-      i32.add
-      local.set $3
-      local.get $14
-      local.get $6
-      i32.add
-      local.set $14
       br $for-loop|1
      end
     end
+    local.get $14
     local.get $12
-    local.get $10
     i32.add
-    local.set $12
+    local.set $14
     br $for-loop|0
    end
   end

@@ -3120,37 +3120,37 @@
    end
   end
  )
- (func $assembly/index/Pixelization (param $0 i32) (param $1 i32)
-  (local $2 i32)
+ (func $assembly/index/Pixelization (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
+  (local $8 i32)
   local.get $0
   local.get $1
   i32.mul
   i32.const 2
   i32.shl
-  local.set $3
+  local.set $2
   local.get $0
-  i32.const 1
-  i32.shl
-  local.set $5
-  local.get $1
   i32.const 1
   i32.shl
   local.set $6
+  local.get $1
+  i32.const 1
+  i32.shl
+  local.set $7
   local.get $0
   i32.const 2
   i32.div_s
-  local.set $7
+  local.set $8
   loop $for-loop|0
-   local.get $4
-   local.get $6
+   local.get $3
+   local.get $7
    i32.lt_s
    i32.const 0
-   local.get $4
+   local.get $3
    i32.const 0
    i32.ge_s
    select
@@ -3159,7 +3159,7 @@
     local.set $0
     loop $for-loop|1
      local.get $0
-     local.get $5
+     local.get $6
      i32.lt_s
      i32.const 0
      local.get $0
@@ -3167,61 +3167,40 @@
      i32.ge_s
      select
      if
-      local.get $2
-      i32.const 2
-      i32.shl
-      local.get $3
-      i32.add
       local.get $0
-      local.get $4
-      local.get $7
+      local.get $3
+      local.get $8
       i32.mul
       i32.add
-      local.tee $1
-      i32.const 2
-      i32.shl
-      i32.load
-      i32.store
-      local.get $2
-      i32.const 1
-      i32.add
-      i32.const 2
-      i32.shl
-      local.get $3
-      i32.add
-      local.get $1
-      i32.const 2
-      i32.shl
-      i32.load
-      i32.store
-      local.get $2
-      i32.const 2
-      i32.add
-      i32.const 2
-      i32.shl
-      local.get $3
-      i32.add
-      local.get $1
-      i32.const 2
-      i32.shl
-      i32.load
-      i32.store
-      local.get $2
-      i32.const 3
-      i32.add
-      i32.const 2
-      i32.shl
-      local.get $3
-      i32.add
-      local.get $1
-      i32.const 2
-      i32.shl
-      i32.load
-      i32.store
-      local.get $2
-      i32.const 4
-      i32.add
-      local.set $2
+      local.set $1
+      loop $while-continue|2
+       local.get $4
+       i32.const 4
+       i32.lt_s
+       if
+        local.get $5
+        i32.const 2
+        i32.shl
+        local.get $2
+        i32.add
+        local.get $1
+        i32.const 2
+        i32.shl
+        i32.load
+        i32.store
+        local.get $5
+        i32.const 1
+        i32.add
+        local.set $5
+        local.get $4
+        i32.const 1
+        i32.add
+        local.set $4
+        br $while-continue|2
+       end
+      end
+      i32.const 0
+      local.set $4
       local.get $0
       i32.const 4
       i32.add
@@ -3229,10 +3208,10 @@
       br $for-loop|1
      end
     end
-    local.get $4
+    local.get $3
     i32.const 4
     i32.add
-    local.set $4
+    local.set $3
     br $for-loop|0
    end
   end

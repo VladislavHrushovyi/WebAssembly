@@ -290,27 +290,29 @@ export function BalanceColor(width:i32, height:i32, redLevel:f64, blueLevel:f64,
     }
 }
 
-export function Pixelization(width:i32, height:i32):void {
+export function Pixelization(width:i32, height:i32, degreePixel:i32):void {
     let offset = width * height * BYTE_PER_IMAGE;
     let i = 0;
+    let finish = 0;
 
     let d1Start = 0;
-    let d1Limit = width*2;
+    let d1Limit = width * 2;
     let d1Advance = 4;
     let d1Multiplier = 1;
     let d2Start = 0;
-    let d2Limit = height*2;
+    let d2Limit = height * 2;
     let d2Advance = 4;
-    let d2Multiplier = width/2;
+    let d2Multiplier = width / 2;
 
     for(let d2 = d2Start; d2 >= 0 && d2 < d2Limit; d2 += d2Advance){
         for(let d1 = d1Start;d1 >= 0 && d1 < d1Limit; d1 += d1Advance) {
             let in_idx = ((d1 * d1Multiplier) + (d2 * d2Multiplier));
-            store<u32>(offset + (i) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            store<u32>(offset + (i+1) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            store<u32>(offset + (i+2) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            store<u32>(offset + (i+3) * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
-            i+=4;
+            while (finish < 4){
+                store<u32>(offset + i * BYTE_PER_IMAGE, load<u32>(in_idx * BYTE_PER_IMAGE));
+                i++
+                finish++;
+            }
+            finish = 0;
         }
     }
 }
