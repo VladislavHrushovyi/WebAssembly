@@ -243,6 +243,30 @@
 
              contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
          })
+         document.getElementById("Vladik").addEventListener("click", function () {
+             instance.exports.InvertRedChannel(img.width, img.height);
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width * img.height * PIXELS_BYTE,
+                 img.width * img.height * PIXELS_BYTE);
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         })
+         document.getElementById("Huy").addEventListener("click", function () {
+             instance.exports.InvertGreenChannel(img.width, img.height);
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width * img.height * PIXELS_BYTE,
+                 img.width * img.height * PIXELS_BYTE);
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         })
+         document.getElementById("Sasi").addEventListener("click", function () {
+             instance.exports.InvertBlueChannel(img.width, img.height);
+             resultData = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width * img.height * PIXELS_BYTE,
+                 img.width * img.height * PIXELS_BYTE);
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         })
     }
 
     async function initWasmModule(){

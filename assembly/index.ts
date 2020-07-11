@@ -317,6 +317,43 @@ export function Pixelization(width:i32, height:i32, degreePixel:i32):void {
     }
 }
 
+export function InvertRedChannel(width: i32, height: i32):void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    for(let i = 0; i < offset; i+=4){
+
+        let currByte = load<u8>(i);
+
+        currByte = 255 - currByte;
+
+        store<u8>(offset + i, currByte);
+    }
+}
+export function InvertGreenChannel(width: i32, height: i32):void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    for(let i = 2; i < offset+1; i+=4){
+
+        let currByte = load<u8>(i-1);
+
+        currByte = 255 - currByte;
+
+        store<u8>(offset + i - 1, currByte);
+    }
+}
+export function InvertBlueChannel(width: i32, height: i32):void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    for(let i = 3; i < offset+1; i+=4){
+
+        let currByte = load<u8>(i-1);
+
+        currByte = 255 - currByte;
+
+        store<u8>(offset + i - 1, currByte);
+    }
+}
+
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 

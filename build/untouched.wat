@@ -49,6 +49,9 @@
  (export "Resize" (func $assembly/index/Resize))
  (export "BalanceColor" (func $assembly/index/BalanceColor))
  (export "Pixelization" (func $assembly/index/Pixelization))
+ (export "InvertRedChannel" (func $assembly/index/InvertRedChannel))
+ (export "InvertGreenChannel" (func $assembly/index/InvertGreenChannel))
+ (export "InvertBlueChannel" (func $assembly/index/InvertBlueChannel))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -4159,6 +4162,138 @@
     local.get $12
     i32.add
     local.set $14
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/InvertRedChannel (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $2
+  i32.const 0
+  local.set $3
+  loop $for-loop|0
+   local.get $3
+   local.get $2
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $3
+    i32.load8_u
+    local.set $5
+    i32.const 255
+    local.get $5
+    i32.sub
+    local.set $5
+    local.get $2
+    local.get $3
+    i32.add
+    local.get $5
+    i32.store8
+    local.get $3
+    i32.const 4
+    i32.add
+    local.set $3
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/InvertGreenChannel (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $2
+  i32.const 2
+  local.set $3
+  loop $for-loop|0
+   local.get $3
+   local.get $2
+   i32.const 1
+   i32.add
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $3
+    i32.const 1
+    i32.sub
+    i32.load8_u
+    local.set $5
+    i32.const 255
+    local.get $5
+    i32.sub
+    local.set $5
+    local.get $2
+    local.get $3
+    i32.add
+    i32.const 1
+    i32.sub
+    local.get $5
+    i32.store8
+    local.get $3
+    i32.const 4
+    i32.add
+    local.set $3
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/InvertBlueChannel (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $2
+  i32.const 3
+  local.set $3
+  loop $for-loop|0
+   local.get $3
+   local.get $2
+   i32.const 1
+   i32.add
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $3
+    i32.const 1
+    i32.sub
+    i32.load8_u
+    local.set $5
+    i32.const 255
+    local.get $5
+    i32.sub
+    local.set $5
+    local.get $2
+    local.get $3
+    i32.add
+    i32.const 1
+    i32.sub
+    local.get $5
+    i32.store8
+    local.get $3
+    i32.const 4
+    i32.add
+    local.set $3
     br $for-loop|0
    end
   end
