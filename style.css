@@ -27,6 +27,7 @@ html, body {
 }
 .setting-block p{
   text-align: center;
+  font-size: 20px;
   border-bottom: dashed;
   border-color: #313638;
 }
