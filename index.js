@@ -230,11 +230,10 @@
         document.getElementById("Pixel").addEventListener("click", function () {
             const canvasTest = document.getElementById("testCanvas");
             const contextTestCanvas = canvasTest.getContext('2d');
-            const degreePixel = document.getElementById("DoP").value;
             canvasTest.width = img.width;
             canvasTest.height = img.height;
             canvasTest.style = "border:1px solid #000000;"
-            instance.exports.Pixelization(img.width, img.height, degreePixel);
+            instance.exports.Pixelization(img.width, img.height);
             console.log("після зума " + memory.buffer.byteLength);
             const resultTest = new Uint8ClampedArray(
                 memory.buffer,
