@@ -308,7 +308,7 @@
         })
 
         document.getElementById("NoiseIncr").addEventListener("click", function () {
-            instance.exports.Noice(img.width, img.height);
+            instance.exports.NoiseImage(img.width, img.height);
 
             resultData = new Uint8ClampedArray(
                 memory.buffer,

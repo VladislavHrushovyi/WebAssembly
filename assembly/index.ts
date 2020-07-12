@@ -385,12 +385,13 @@ export function BlurImage(width: i32, height: i32):void {
         }
 }
 
-export function Noise(width: i32, height: i32, v: f64) : void {
+export function NoiseImage(width: i32, height: i32) : void {
     let offset = width * height * BYTE_PER_IMAGE;
 
+    let v = <f64>0.04;
     let stdFev = Math.sqrt(v);
-    for(let i = 0; i < offset; i + 4){
-        let noise = (Math.random() - <f64>0.5) * 2 * stdFev;
+    for(let i = 0; i < offset-4; i += 4){
+        let noise = (9 - <f64>0.5) * 2 * stdFev;
 
         store<u8>(offset+i, load<u8>(i)* <u8>noise);
         store<u8>(offset+i + 1, load<u8>(i + 1) * <u8>noise);
