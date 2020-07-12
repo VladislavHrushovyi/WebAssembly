@@ -277,6 +277,35 @@
 
              context.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
          })
+
+         document.getElementById("clone").addEventListener("click", function () {
+             const canvasTest = document.getElementById("testCanvas");
+             const contextTestCanvas = canvasTest.getContext('2d');
+
+             canvasTest.width = img.width * 2;
+             canvasTest.height = img.height * 2;
+             canvasTest.style="border:1px solid #000000;"
+
+             const bytePerImageTest = img.width * img.height * PIXELS_BYTE;
+             const minMemSizeTest = bytePerImageTest*8;
+             if(memory.buffer.byteLength < minMemSizeTest){
+                 const pagesNeededTest = Math.ceil(minMemSizeTest/PAGES);
+                 memory.grow(pagesNeededTest);
+                 console.log("New memory")
+             }
+
+             new Uint8ClampedArray(memory.buffer, 0).set(imageData.data);
+
+             instance.exports.ZoomTest(img.width,img.height);
+             console.log("після зума " + memory.buffer.byteLength);
+             const resultTest = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE*4);
+
+             console.log("result test "+resultTest.byteLength);
+             contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
+         })
     }
 
     async function initWasmModule(){
