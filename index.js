@@ -306,6 +306,16 @@
              console.log("result test "+resultTest.byteLength);
              contextTestCanvas.putImageData(new ImageData(resultTest, canvasTest.width, canvasTest.height), 0, 0);
          })
+
+         document.getElementById("NoiseIncr").addEventListener("click", function () {
+             instance.exports.Noice(img.width, img.height);
+
+             resultData =  new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+             context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
+         })
     }
 
     async function initWasmModule(){

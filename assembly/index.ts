@@ -385,6 +385,19 @@ export function BlurImage(width: i32, height: i32):void {
         }
 }
 
+export function Noise(width: i32, height: i32, v: f64) : void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+    let stdFev = Math.sqrt(v);
+    for(let i = 0; i < offset; i + 4){
+        let noise = (Math.random() - <f64>0.5) * 2 * stdFev;
+
+        store<u8>(offset+i, load<u8>(i)* <u8>noise);
+        store<u8>(offset+i + 1, load<u8>(i + 1) * <u8>noise);
+        store<u8>(offset+i + 2, load<u8>(i + 2) * <u8>noise);
+    }
+}
+
 export function ZoomTest(width: i32, height:i32): void {
     let offset = width * height * BYTE_PER_IMAGE;
 
