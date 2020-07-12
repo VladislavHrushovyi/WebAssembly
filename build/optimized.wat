@@ -41,6 +41,7 @@
  (export "InvertRedChannel" (func $assembly/index/InvertRedChannel))
  (export "InvertGreenChannel" (func $assembly/index/InvertGreenChannel))
  (export "InvertBlueChannel" (func $assembly/index/InvertBlueChannel))
+ (export "BlurImage" (func $assembly/index/BlurImage))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -3316,6 +3317,89 @@
     i32.const 4
     i32.add
     local.set $0
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/BlurImage (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  i32.const 2
+  i32.shl
+  local.set $0
+  loop $for-loop|0
+   local.get $2
+   local.get $0
+   i32.const 12
+   i32.sub
+   i32.lt_s
+   if
+    local.get $2
+    i32.load8_u offset=3
+    drop
+    local.get $2
+    i32.load8_u offset=7
+    drop
+    local.get $2
+    i32.load8_u offset=10
+    drop
+    local.get $2
+    i32.load8_u offset=8
+    local.get $2
+    i32.load8_u offset=1
+    local.get $2
+    i32.load8_u offset=5
+    i32.add
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    local.set $3
+    local.get $2
+    i32.load8_u offset=9
+    local.get $2
+    i32.load8_u offset=2
+    local.get $2
+    i32.load8_u offset=6
+    i32.add
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    local.set $4
+    local.get $0
+    local.get $2
+    i32.add
+    local.tee $1
+    local.get $2
+    i32.load8_u
+    local.get $2
+    i32.load8_u
+    local.get $2
+    i32.load8_u offset=4
+    i32.add
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    i32.store8
+    local.get $1
+    local.get $3
+    i32.store8 offset=1
+    local.get $1
+    local.get $4
+    i32.store8 offset=2
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
     br $for-loop|0
    end
   end

@@ -267,6 +267,16 @@
                  img.width * img.height * PIXELS_BYTE);
              context.putImageData(new ImageData(resultData, img.width, img.height),0,0);
          })
+         document.getElementById("Blur").addEventListener("click", function () {
+             instance.exports.BlurImage(img.width,img.height);
+
+             const resultTest = new Uint8ClampedArray(
+                 memory.buffer,
+                 img.width*img.height*PIXELS_BYTE,
+                 img.width*img.height*PIXELS_BYTE);
+
+             context.putImageData(new ImageData(resultTest, img.width, img.height), 0, 0);
+         })
     }
 
     async function initWasmModule(){

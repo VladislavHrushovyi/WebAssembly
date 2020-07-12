@@ -329,6 +329,7 @@ export function InvertRedChannel(width: i32, height: i32):void {
         store<u8>(offset + i, currByte);
     }
 }
+
 export function InvertGreenChannel(width: i32, height: i32):void {
     let offset = width * height * BYTE_PER_IMAGE;
 
@@ -341,6 +342,7 @@ export function InvertGreenChannel(width: i32, height: i32):void {
         store<u8>(offset + i - 1, currByte);
     }
 }
+
 export function InvertBlueChannel(width: i32, height: i32):void {
     let offset = width * height * BYTE_PER_IMAGE;
 
@@ -352,6 +354,35 @@ export function InvertBlueChannel(width: i32, height: i32):void {
 
         store<u8>(offset + i - 1, currByte);
     }
+}
+
+export function BlurImage(width: i32, height: i32):void {
+    let offset = width * height * BYTE_PER_IMAGE;
+
+        for(let i = 0; i < offset - 12; i += 4){
+            let red1 =  load<u8>(i);
+            let green1 = load<u8>(i + 1);
+            let blue1 = load<u8>(i + 2);
+            let alpha1 = load<u8>(i + 3);
+
+            let red2 =  load<u8>(i + 4);
+            let green2 = load<u8>(i + 5);
+            let blue2 = load<u8>(i + 6);
+            let alpha2 = load<u8>(i + 7);
+
+            let red3 =  load<u8>(i);
+            let green3 = load<u8>(i + 8);
+            let blue3 = load<u8>(i + 9);
+            let alpha3 = load<u8>(i + 10);
+
+            let bR = <u8>((red1 + red2 + red3) / 2);
+            let bG = <u8>((green1 + green2 + green3) / 2);
+            let bB = <u8>((blue1 + blue2 + blue3) / 2);
+
+            store<u8>(offset + i, bR);
+            store<u8>(offset + i+1, bG);
+            store<u8>(offset + i+2, bB);
+        }
 }
 
 export function ZoomTest(width: i32, height:i32): void {

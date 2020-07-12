@@ -52,6 +52,7 @@
  (export "InvertRedChannel" (func $assembly/index/InvertRedChannel))
  (export "InvertGreenChannel" (func $assembly/index/InvertGreenChannel))
  (export "InvertBlueChannel" (func $assembly/index/InvertBlueChannel))
+ (export "BlurImage" (func $assembly/index/BlurImage))
  (export "ZoomTest" (func $assembly/index/ZoomTest))
  (func $~lib/rt/tlsf/removeBlock (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -4289,6 +4290,155 @@
     i32.const 1
     i32.sub
     local.get $5
+    i32.store8
+    local.get $3
+    i32.const 4
+    i32.add
+    local.set $3
+    br $for-loop|0
+   end
+  end
+ )
+ (func $assembly/index/BlurImage (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
+  (local $15 i32)
+  (local $16 i32)
+  (local $17 i32)
+  (local $18 i32)
+  (local $19 i32)
+  local.get $0
+  local.get $1
+  i32.mul
+  global.get $assembly/index/BYTE_PER_IMAGE
+  i32.mul
+  local.set $2
+  i32.const 0
+  local.set $3
+  loop $for-loop|0
+   local.get $3
+   local.get $2
+   i32.const 12
+   i32.sub
+   i32.lt_s
+   local.set $4
+   local.get $4
+   if
+    local.get $3
+    i32.load8_u
+    local.set $5
+    local.get $3
+    i32.const 1
+    i32.add
+    i32.load8_u
+    local.set $6
+    local.get $3
+    i32.const 2
+    i32.add
+    i32.load8_u
+    local.set $7
+    local.get $3
+    i32.const 3
+    i32.add
+    i32.load8_u
+    local.set $8
+    local.get $3
+    i32.const 4
+    i32.add
+    i32.load8_u
+    local.set $9
+    local.get $3
+    i32.const 5
+    i32.add
+    i32.load8_u
+    local.set $10
+    local.get $3
+    i32.const 6
+    i32.add
+    i32.load8_u
+    local.set $11
+    local.get $3
+    i32.const 7
+    i32.add
+    i32.load8_u
+    local.set $12
+    local.get $3
+    i32.load8_u
+    local.set $13
+    local.get $3
+    i32.const 8
+    i32.add
+    i32.load8_u
+    local.set $14
+    local.get $3
+    i32.const 9
+    i32.add
+    i32.load8_u
+    local.set $15
+    local.get $3
+    i32.const 10
+    i32.add
+    i32.load8_u
+    local.set $16
+    local.get $5
+    local.get $9
+    i32.add
+    local.get $13
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    local.set $17
+    local.get $6
+    local.get $10
+    i32.add
+    local.get $14
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    local.set $18
+    local.get $7
+    local.get $11
+    i32.add
+    local.get $15
+    i32.add
+    i32.const 255
+    i32.and
+    i32.const 2
+    i32.div_u
+    local.set $19
+    local.get $2
+    local.get $3
+    i32.add
+    local.get $17
+    i32.store8
+    local.get $2
+    local.get $3
+    i32.add
+    i32.const 1
+    i32.add
+    local.get $18
+    i32.store8
+    local.get $2
+    local.get $3
+    i32.add
+    i32.const 2
+    i32.add
+    local.get $19
     i32.store8
     local.get $3
     i32.const 4
